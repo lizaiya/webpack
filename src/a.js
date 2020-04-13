@@ -1,2 +1,2 @@
 // let abc = '1234'
-module.exports = 'require语法'
+module.exports = 'webpack-dev-server require语法1111'
