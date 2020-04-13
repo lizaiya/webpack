@@ -4,7 +4,7 @@ module.exports = {
     mode: 'production', // 模式 默认两种production development
     entry: './src/index.js', // 入口
     output: {
-        filename: 'index.js', // 打包后的文件名
+        filename: 'index.[hash:8].js', // 打包后的文件名 加上8位数hash 防止缓存
         path: path.resolve(__dirname, 'dist'), // 路径必须是一个绝对路径
     },
     // 打包在内存中,不会显示在文件夹
