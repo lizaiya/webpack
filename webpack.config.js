@@ -1,4 +1,5 @@
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     mode: 'development', // 模式 默认两种production development
     entry: './src/index.js', // 入口
@@ -15,4 +16,11 @@ module.exports = {
         compress: true,
         open: true, // 每次打开一个网页
     },
+    // 数组 放着所有的webpack的插件
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './src/index.html', // 模板文件
+            filename: 'index.html', // 打包后的名称
+        }),
+    ],
 }
