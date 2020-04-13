@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
-    mode: 'development', // 模式 默认两种production development
+    mode: 'production', // 模式 默认两种production development
     entry: './src/index.js', // 入口
     output: {
         filename: 'index.js', // 打包后的文件名
@@ -21,6 +21,11 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html', // 模板文件
             filename: 'index.html', // 打包后的名称
+            hash: true, // 将打包后的文件加上哈希值
+            minify: {
+                removeAttributeQuotes: true, // 去除属性双引号
+                collapseWhitespace: true, // 打包后生成一行
+            },
         }),
     ],
 }
