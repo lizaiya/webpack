@@ -4,6 +4,7 @@ module.exports = {
         node: true,
         es6: true,
     },
+    parser: 'babel-eslint', // 指定解析器，否则错误难消,不然使用es6装饰器 报错
     extends: 'eslint:recommended',
     // extends: 'airbnb-base', 上一行为不要代码格式化功能，这一行为代码格式化选择 airbnb 的格式规范。
     globals: {

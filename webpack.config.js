@@ -4,8 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') // 提取css,为单独文件
 const OptimizeCss = require('optimize-css-assets-webpack-plugin') // 优化或者压缩CSS资源
 const UglifyjsPlugin = require('uglifyjs-webpack-plugin') // 压缩js代码
+// babel-loader 转换下载器
+// @babel/core babel的核心代码 转换代码
+// @babel/preset-env 将ES6转换ES5
+//@babel/plugin-proposal-decorators es6装饰器
 module.exports = {
-    mode: 'production', // 模式 默认两种production development
+    mode: 'development', // 模式 默认两种production development
     entry: './src/index.js', // 入口
     output: {
         filename: 'index.[hash:8].js', // 打包后的文件名 加上8位数hash 防止缓存
@@ -15,10 +19,10 @@ module.exports = {
     devServer: {
         // 开发服务器配置
         port: 3000,
-        progress: true,
+        progress: false,
         contentBase: './index.js', // 打包后的js
-        compress: true,
-        open: true, // 每次打开一个网页
+        compress: false,
+        open: false, // 每次打开一个网页
     },
     // 优化项
     optimization: {
@@ -52,6 +56,19 @@ module.exports = {
     module: {
         // 规则
         rules: [
+            {
+                test: /\.js$/,
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            // 用babel-loader 需要把ES6转换为ES5
+                            presets: ['@babel/preset-env'],
+                            plugins: [['@babel/plugin-proposal-decorators', { legacy: true }]], //装饰器
+                        },
+                    },
+                ],
+            },
             // style-loader 注入style标签将css添加到DOM中
             // css-loader 解析@import语法url()
             // less-loader 将less文件编译为css

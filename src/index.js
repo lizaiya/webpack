@@ -1,5 +1,6 @@
-// let str = require('./a.js')
-// import css from './index.css'
 require('./index.css')
 require('./main.less')
-// console.log(str)
+let es6 = require('./ES6.js')
+es6.fn()
+let a = new es6.A()
+console.log(a.name)
