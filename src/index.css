@@ -1,4 +1,7 @@
 @import './a.css';
 body {
     background: red;
+    transform: translate(45deg);
+    font-size: 25px;
+    display: flex;
 }

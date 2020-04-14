@@ -1,5 +1,7 @@
+const devMode = process.env.NODE_ENV !== 'production'
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
     mode: 'production', // 模式 默认两种production development
     entry: './src/index.js', // 入口
@@ -27,6 +29,10 @@ module.exports = {
                 collapseWhitespace: true, // 打包后生成一行
             },
         }),
+        new MiniCssExtractPlugin({
+            filename: devMode ? '[name].css' : '[name].[hash].css',
+            chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+        }),
     ],
     // 模块
     // loader 用于对模块的源代码进行转换
@@ -37,25 +43,18 @@ module.exports = {
             // css-loader 解析@import语法url()
             // less-loader 将less文件编译为css
             {
-                test: /\.css$/, // 匹配css
+                test: /\.(sa|sc|le|c)ss$/, // 处理sass scss less css
                 // 从右往左执行 从下往上执行
                 use: [
                     {
-                        loader: 'style-loader',
-                    },
-                    {
-                        loader: 'css-loader',
-                    },
-                ],
-            },
-            {
-                test: /\.less$/, // 处理less文件
-                // 从右往左执行
-                use: [
-                    {
-                        loader: 'style-loader',
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: process.env.NODE_ENV === 'development', // 仅在dev模式下使用热更新
+                            reloadAll: true, //如果hmr失效, 将强制更新
+                        },
                     },
                     'css-loader',
+                    'postcss-loader',
                     'less-loader',
                 ],
             },
