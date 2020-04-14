@@ -1,5 +1,5 @@
-let str = require('./a.js')
+// let str = require('./a.js')
 // import css from './index.css'
 require('./index.css')
 require('./main.less')
-console.log(str)
+// console.log(str)
