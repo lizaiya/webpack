@@ -28,4 +28,37 @@ module.exports = {
             },
         }),
     ],
+    // 模块
+    // loader 用于对模块的源代码进行转换
+    module: {
+        // 规则
+        rules: [
+            // style-loader 注入style标签将css添加到DOM中
+            // css-loader 解析@import语法url()
+            // less-loader 将less文件编译为css
+            {
+                test: /\.css$/, // 匹配css
+                // 从右往左执行 从下往上执行
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                    },
+                ],
+            },
+            {
+                test: /\.less$/, // 处理less文件
+                // 从右往左执行
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    'css-loader',
+                    'less-loader',
+                ],
+            },
+        ],
+    },
 }
