@@ -2,6 +2,7 @@ const devMode = process.env.NODE_ENV !== 'production'
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') // 提取css,为单独文件
+const OptimizeCss = require('optimize-css-assets-webpack-plugin') // 优化或者压缩CSS资源
 module.exports = {
     mode: 'production', // 模式 默认两种production development
     entry: './src/index.js', // 入口
@@ -17,6 +18,10 @@ module.exports = {
         contentBase: './index.js', // 打包后的js
         compress: true,
         open: true, // 每次打开一个网页
+    },
+    // 优化项
+    optimization: {
+        minimizer: [new OptimizeCss()],
     },
     // 数组 放着所有的webpack的插件
     plugins: [
