@@ -1,7 +1,7 @@
 const devMode = process.env.NODE_ENV !== 'production'
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin') // 提取css,为单独文件
 module.exports = {
     mode: 'production', // 模式 默认两种production development
     entry: './src/index.js', // 入口
@@ -54,7 +54,7 @@ module.exports = {
                         },
                     },
                     'css-loader',
-                    'postcss-loader',
+                    'postcss-loader', // 加浏览器前缀
                     'less-loader',
                 ],
             },
