@@ -13,6 +13,10 @@ class A {
 function log(target) {
     console.log(target)
 }
+function* gen() {
+    yield 1
+}
+console.log(gen().next())
 module.exports = {
     fn,
     A,

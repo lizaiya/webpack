@@ -28,7 +28,7 @@ module.exports = {
     optimization: {
         minimizer: [
             new UglifyjsPlugin({
-                cache: true, // 是否缓存
+                cache: false, // 是否缓存
                 parallel: true, // 是否并行压缩
                 sourceMap: true,
             }),
@@ -58,16 +58,21 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                use: [
-                    {
-                        loader: 'babel-loader',
-                        options: {
-                            // 用babel-loader 需要把ES6转换为ES5
-                            presets: ['@babel/preset-env'],
-                            plugins: [['@babel/plugin-proposal-decorators', { legacy: true }]], //装饰器
-                        },
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        // 用babel-loader 需要把ES6转换为ES5
+                        presets: ['@babel/preset-env'],
+                        plugins: [
+                            ['@babel/plugin-proposal-decorators', { legacy: true }],
+                            '@babel/plugin-transform-runtime', // 使用高级语法
+                        ], //装饰器
+                        // 报错信息 Uncaught TypeError: Cannot assign to read only property 'exports' of object '#<Object>'
+                        sourceType: 'unambiguous', // 可以使用require和module.exports&import和exports
                     },
-                ],
+                },
+                include: path.resolve(__dirname, 'src'),
+                exclude: /node_modules/,
             },
             // style-loader 注入style标签将css添加到DOM中
             // css-loader 解析@import语法url()
